@@ -7,6 +7,8 @@ A sample Grafana configration is available.  See [`horcrux.json`](https://github
 
 ![Sample Grafana Dashboard](https://github.com/chillyvee/horcrux-info/raw/master/grafana/grafana.png "Sample Grafana Dashboard").
 
+![Sample Prometheus Configuration](https://github.com/chillyvee/horcrux-info/raw/master/prometheus/prometheus.yml "Sample Prometheus Configuration").)
+
 
 ## How to enable Prometheus 
 
