@@ -1,13 +1,17 @@
 This repository shares sample files used to monitor Horcrux metrics.
 
 
+## Prometheus Configuration for Horcrux
+
+[Sample Prometheus Configuration](https://github.com/chillyvee/horcrux-info/raw/master/prometheus/prometheus.yml "Sample Prometheus Configuration") to provide Grafana with information.
+
+
 ## Grafana Dashboard for Horcrux
 
 A sample Grafana configration is available.  See [`horcrux.json`](https://github.com/chillyvee/horcrux-info/blob/master/grafana/horcrux.json)
 
 ![Sample Grafana Dashboard](https://github.com/chillyvee/horcrux-info/raw/master/grafana/grafana.png "Sample Grafana Dashboard").
 
-![Sample Prometheus Configuration](https://github.com/chillyvee/horcrux-info/raw/master/prometheus/prometheus.yml "Sample Prometheus Configuration").)
 
 
 ## How to enable Prometheus 
