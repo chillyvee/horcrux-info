@@ -61,7 +61,7 @@
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 20
               }
             ]
           }
@@ -79,7 +79,7 @@
         "colorMode": "value",
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "auto",
+        "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -87,7 +87,8 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "text": {},
+        "textMode": "value_and_name"
       },
       "pluginVersion": "9.1.5",
       "targets": [
@@ -98,7 +99,7 @@
           },
           "editorMode": "builder",
           "expr": "signer_missed_ephemeral_shares",
-          "legendFormat": "s{{share}}/{{instance}} ! {{peerid}}",
+          "legendFormat": "s{{share}}/{{instance}} missed from: {{peerid}}",
           "range": true,
           "refId": "A"
         }
@@ -826,7 +827,7 @@
           "refId": "A"
         }
       ],
-      "title": "Seconds Since Last Threshold-Share Sign",
+      "title": "Seconds Since Last Threshold-Share Sign [ Should be under 2x Blocktime ]",
       "type": "timeseries"
     },
     {
@@ -1560,6 +1561,10 @@
           "text": "1",
           "value": "1"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "oBLJyOnVz"
+        },
         "definition": "label_values(share)",
         "hide": 0,
         "includeAll": false,
@@ -1580,13 +1585,13 @@
     ]
   },
   "time": {
-    "from": "now-1m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "utc",
   "title": "Horcrux Monitoring",
   "uid": "PPifyO7Vk",
-  "version": 23,
+  "version": 24,
   "weekStart": ""
 }
