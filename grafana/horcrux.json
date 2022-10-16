@@ -1,4 +1,41 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.1.5"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -24,7 +61,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -44,12 +81,43 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "log"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -61,7 +129,7 @@
               },
               {
                 "color": "red",
-                "value": 20
+                "value": 10
               }
             ]
           }
@@ -69,48 +137,47 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 19,
         "w": 7,
         "x": 0,
         "y": 1
       },
-      "id": 29,
+      "id": 23,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
+        "legend": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "text": {},
-        "textMode": "value_and_name"
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "9.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_missed_ephemeral_shares",
-          "legendFormat": "s{{share}}/{{instance}} missed from: {{peerid}}",
+          "legendFormat": "s{{share}}/{{instance}} [X] {{peerid}}",
           "range": true,
           "refId": "A"
         }
       ],
       "title": "Consecutive Missing Threshold Shares",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -188,7 +255,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_cosigner_ephemeral_share_lag_seconds{chain=\"$chain\", quantile=\"0.9\"}",
@@ -203,7 +270,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -255,7 +322,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_sentry_connect_tries{chain=\"$chain\"}",
@@ -270,101 +337,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "log": 2,
-              "type": "log"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "area"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 10
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 7,
-        "x": 0,
-        "y": 5
-      },
-      "id": 23,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.1.5",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "oBLJyOnVz"
-          },
-          "editorMode": "builder",
-          "expr": "signer_missed_ephemeral_shares",
-          "legendFormat": "s{{share}}/{{instance}} [X] {{peerid}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Consecutive Missing Threshold Shares",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -391,7 +364,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 4,
         "w": 6,
         "x": 18,
         "y": 5
@@ -416,7 +389,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_total_sentry_connect_tries{chain=\"$chain\"}",
@@ -431,7 +404,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Peers slow to respond in the Ephemeral Share phase may not appear since they are not asked to sign.",
       "fieldConfig": {
@@ -487,7 +460,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 7,
         "w": 11,
         "x": 7,
         "y": 7
@@ -509,7 +482,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_cosigner_sign_lag_seconds{chain=\"$chain\", quantile=\"0.9\"}",
@@ -524,7 +497,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -548,7 +521,7 @@
         "h": 3,
         "w": 6,
         "x": 18,
-        "y": 8
+        "y": 9
       },
       "id": 11,
       "options": {
@@ -570,11 +543,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_total_precommits_signed{chain=\"$chain\"}",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{share}}/{{instance}}",
           "range": true,
           "refId": "A"
         }
@@ -585,7 +558,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -609,7 +582,7 @@
         "h": 3,
         "w": 6,
         "x": 18,
-        "y": 11
+        "y": 12
       },
       "id": 12,
       "options": {
@@ -631,11 +604,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_total_prevotes_signed{chain=\"$chain\"}",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{share}}/{{instance}}",
           "range": true,
           "refId": "A"
         }
@@ -646,100 +619,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "log": 2,
-              "type": "log"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 7,
-        "x": 0,
-        "y": 13
-      },
-      "id": 24,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "oBLJyOnVz"
-          },
-          "editorMode": "builder",
-          "expr": "signer_total_missed_ephemeral_shares",
-          "legendFormat": "s{{share}}/{{instance}} [X] {{peerid}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Missing Threshold Shares",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Needs 1-3s scrape_interval to be accurate.\nShould not exceed 2x expected block time.",
       "fieldConfig": {
@@ -799,7 +679,7 @@
         "h": 7,
         "w": 11,
         "x": 7,
-        "y": 13
+        "y": 14
       },
       "id": 10,
       "options": {
@@ -818,7 +698,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_seconds_since_last_local_ephemeral_share_time{chain=\"$chain\"}",
@@ -833,7 +713,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -847,10 +727,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -861,7 +737,7 @@
         "h": 3,
         "w": 6,
         "x": 18,
-        "y": 14
+        "y": 15
       },
       "id": 9,
       "options": {
@@ -883,11 +759,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_total_proposals_signed{chain=\"$chain\"}",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{share}}/{{instance}}",
           "range": true,
           "refId": "A"
         }
@@ -896,22 +772,240 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 18,
+        "y": 18
+      },
+      "id": 33,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.1.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "signer_total_raft_leader{chain=\"$chain\"}",
+          "legendFormat": "{{share}}/{{instance}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Signed as Raft Leader",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "log"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 0,
+        "y": 20
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "expr": "signer_total_missed_ephemeral_shares",
+          "legendFormat": "s{{share}}/{{instance}} [X] {{peerid}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total Missing Threshold Shares",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "If your cluster signing is late AND this metric is high, it indicates your cluster may have too much internal latency and can't handle non-ideal cluster cases.  Cluster closer geograpically (or with lower latency links).  This indicates the sentry gave a raft follower the signing request so an extra step is required to forward the request onto the leader.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 18,
+        "y": 21
+      },
+      "id": 34,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.1.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "expr": "signer_total_raft_not_leader{chain=\"$chain\"}",
+          "legendFormat": "{{share}}/{{instance}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Times Forwarded to Raft Leader to Sign",
+      "type": "stat"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 27
       },
       "id": 16,
       "panels": [],
-      "title": "Missed Blocks",
+      "title": "Misses",
       "type": "row"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -947,7 +1041,7 @@
         "h": 4,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 28
       },
       "id": 8,
       "options": {
@@ -969,7 +1063,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_missed_prevotes{chain=\"$chain\"}",
@@ -984,7 +1078,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1042,7 +1136,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 21
+        "y": 28
       },
       "id": 6,
       "options": {
@@ -1062,7 +1156,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_missed_precommits{chain=\"$chain\"}",
@@ -1077,7 +1171,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1135,7 +1229,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 21
+        "y": 28
       },
       "id": 13,
       "options": {
@@ -1155,7 +1249,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_total_missed_precommits{chain=\"$chain\"}",
@@ -1170,7 +1264,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1198,7 +1292,7 @@
         "h": 4,
         "w": 12,
         "x": 0,
-        "y": 25
+        "y": 32
       },
       "id": 14,
       "options": {
@@ -1220,7 +1314,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_total_missed_prevotes{chain=\"$chain\"}",
@@ -1238,7 +1332,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 36
       },
       "id": 26,
       "panels": [],
@@ -1248,7 +1342,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1306,7 +1400,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 30
+        "y": 37
       },
       "id": 20,
       "options": {
@@ -1325,7 +1419,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "horcrux_raft_transition_heartbeat_timeout",
@@ -1340,7 +1434,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1398,7 +1492,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 30
+        "y": 37
       },
       "id": 21,
       "options": {
@@ -1417,7 +1511,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "horcrux_raft_transition_leader_lease_timeout",
@@ -1432,7 +1526,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "oBLJyOnVz"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1490,7 +1584,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 30
+        "y": 37
       },
       "id": 22,
       "options": {
@@ -1509,7 +1603,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "oBLJyOnVz"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
           "expr": "signer_total_raft_leader_election_timeout",
@@ -1520,6 +1614,195 @@
       ],
       "title": "Raft Leader Election Timeout Count",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "run: \"hocrux elect share#\" to force a change",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 45
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "expr": "horcrux_raft_state_leader",
+          "legendFormat": "{{share}} / {{instance}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Raft State - Become Leader Times",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 45
+      },
+      "id": 32,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "expr": "horcrux_raft_state_follower",
+          "legendFormat": "{{share}} / {{instance}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Raft State -  Become Follower Times",
+      "type": "timeseries"
     }
   ],
   "refresh": "5s",
@@ -1529,14 +1812,10 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "uni-5",
-          "value": "uni-5"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "oBLJyOnVz"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(chain)",
         "hide": 0,
@@ -1556,14 +1835,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "1",
-          "value": "1"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "oBLJyOnVz"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(share)",
         "hide": 0,
@@ -1585,13 +1860,13 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "utc",
   "title": "Horcrux Monitoring",
   "uid": "PPifyO7Vk",
-  "version": 24,
+  "version": 29,
   "weekStart": ""
 }
