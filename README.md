@@ -22,8 +22,10 @@ https://github.com/chillyvee/horcrux/tree/add_prometheus
 It's currently awaiting review from the team in a pending PR so feel free to try it on a testnet.
 https://github.com/strangelove-ventures/horcrux/pull/93
 
-## Prometheus labeling note:
+## Prometheus labeling note
 Since node IP+Port can take a lot of space in displays, we tag each node with a share label.
+
+The share variable is NOT YET used for filtering in our examples.
 
 ```
 scrape_configs:
