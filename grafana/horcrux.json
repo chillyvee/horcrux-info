@@ -83,6 +83,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Increasing metrics here indicate signing leader isn't able to get a response from the other nodes in the cluster.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -137,7 +138,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 19,
+        "h": 13,
         "w": 7,
         "x": 0,
         "y": 1
@@ -179,7 +180,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "",
+      "description": "In phase 1, the signing leader checks which other nodes are available.  The fastest responses go on to threshold sign in Phase 2.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -406,7 +407,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "Peers slow to respond in the Ephemeral Share phase may not appear since they are not asked to sign.",
+      "description": "This shows how long it takes for each cosigner to sign from the perspective of the signing leader.\n\nPeers slow to respond in the Ephemeral Share phase may not appear since they are not asked to sign. Only metrics from the signing leader update.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -460,7 +461,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 12,
         "w": 11,
         "x": 7,
         "y": 7
@@ -621,7 +622,6 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "Needs 1-3s scrape_interval to be accurate.\nShould not exceed 2x expected block time.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -645,7 +645,8 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
-              "type": "linear"
+              "log": 2,
+              "type": "log"
             },
             "showPoints": "auto",
             "spanNulls": false,
@@ -654,11 +655,10 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "area"
+              "mode": "off"
             }
           },
           "mappings": [],
-          "min": -2,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -668,7 +668,7 @@
               },
               {
                 "color": "red",
-                "value": 15
+                "value": 80
               }
             ]
           }
@@ -677,11 +677,11 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 11,
-        "x": 7,
+        "w": 7,
+        "x": 0,
         "y": 14
       },
-      "id": 10,
+      "id": 24,
       "options": {
         "legend": {
           "calcs": [],
@@ -701,13 +701,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "signer_seconds_since_last_local_ephemeral_share_time{chain=\"$chain\"}",
-          "legendFormat": "s{{share}}/{{instance}}",
+          "expr": "signer_total_missed_ephemeral_shares",
+          "legendFormat": "s{{share}}/{{instance}} [X] {{peerid}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Seconds Since Last Threshold-Share Sign [ Should be under 2x Blocktime ]",
+      "title": "Total Missing Threshold Shares",
       "type": "timeseries"
     },
     {
@@ -776,7 +776,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "",
+      "description": "Increments by 1 each time signed as leader.  Includes Prevotes and Precommits.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -839,6 +839,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Needs 1-3s scrape_interval to be accurate.\nShould not exceed 2x expected block time.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -862,8 +863,7 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
-              "log": 2,
-              "type": "log"
+              "type": "linear"
             },
             "showPoints": "auto",
             "spanNulls": false,
@@ -872,10 +872,11 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "area"
             }
           },
           "mappings": [],
+          "min": -2,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -885,7 +886,7 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 15
               }
             ]
           }
@@ -894,11 +895,11 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 7,
-        "x": 0,
-        "y": 20
+        "w": 11,
+        "x": 7,
+        "y": 19
       },
-      "id": 24,
+      "id": 10,
       "options": {
         "legend": {
           "calcs": [],
@@ -918,13 +919,13 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "signer_total_missed_ephemeral_shares",
-          "legendFormat": "s{{share}}/{{instance}} [X] {{peerid}}",
+          "expr": "signer_seconds_since_last_local_ephemeral_share_time{chain=\"$chain\"}",
+          "legendFormat": "s{{share}}/{{instance}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Total Missing Threshold Shares",
+      "title": "Seconds Since Last Threshold-Share Sign [ Should be under 2x Blocktime ]",
       "type": "timeseries"
     },
     {
@@ -995,7 +996,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 26
       },
       "id": 16,
       "panels": [],
@@ -1041,7 +1042,7 @@
         "h": 4,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 27
       },
       "id": 8,
       "options": {
@@ -1136,7 +1137,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 28
+        "y": 27
       },
       "id": 6,
       "options": {
@@ -1229,7 +1230,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 28
+        "y": 27
       },
       "id": 13,
       "options": {
@@ -1292,7 +1293,7 @@
         "h": 4,
         "w": 12,
         "x": 0,
-        "y": 32
+        "y": 31
       },
       "id": 14,
       "options": {
@@ -1332,7 +1333,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 35
       },
       "id": 26,
       "panels": [],
@@ -1400,7 +1401,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 37
+        "y": 36
       },
       "id": 20,
       "options": {
@@ -1492,7 +1493,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 37
+        "y": 36
       },
       "id": 21,
       "options": {
@@ -1584,7 +1585,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 37
+        "y": 36
       },
       "id": 22,
       "options": {
@@ -1677,7 +1678,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 45
+        "y": 44
       },
       "id": 31,
       "options": {
@@ -1771,7 +1772,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 45
+        "y": 44
       },
       "id": 32,
       "options": {
@@ -1860,13 +1861,13 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "utc",
   "title": "Horcrux Monitoring",
   "uid": "PPifyO7Vk",
-  "version": 29,
+  "version": 30,
   "weekStart": ""
 }
